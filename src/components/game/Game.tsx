@@ -66,7 +66,7 @@ class Game extends Component<{}, MyState> {
             'Revenir au début de la partie';
             return (
                 <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>{desc}</button>
+                    <button onClick={() => this.jumpTo(move)} className={move === this.state.stepNumber?"button button-active":"button button-primary"}>{desc}</button>
                 </li>
             )
         });
