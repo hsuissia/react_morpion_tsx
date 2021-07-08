@@ -19,17 +19,17 @@ export function calculateWinner(squares) {
   }
 
 export function squareToPosition(i) {
-    const position = [
-        "(1,1)",
-        "(1,2)",
-        "(1,3)",
-        "(2,1)",
-        "(2,2)",
-        "(2,3)",
-        "(3,1)",
-        "(3,2)",
-        "(3,3)",
-    ]
+  const position = [
+    "(Col: 1, Ligne: 1)",
+    "(Col: 1, Ligne: 2)",
+    "(Col: 1, Ligne: 3)",
+    "(Col: 2, Ligne: 1)",
+    "(Col: 2, Ligne: 2)",
+    "(Col: 2, Ligne: 3)",
+    "(Col: 3, Ligne: 1)",
+    "(Col: 3, Ligne: 2)",
+    "(Col: 3, Ligne: 3)",
+]
 
     return position[i];
 }
