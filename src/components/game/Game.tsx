@@ -9,6 +9,7 @@ type History = {
 }
 
 type MyState = {
+    order: string,
     xIsNext: boolean,
     stepNumber: number,
     history: Array<History>
@@ -25,6 +26,7 @@ class Game extends Component<{}, MyState> {
             }],
             xIsNext: true,
             stepNumber: 0,
+            order: "ASC",
         };
     }
 
@@ -55,10 +57,32 @@ class Game extends Component<{}, MyState> {
         });
     }
 
+    newGame () {
+        this.setState({
+            history: [{
+                squares: Array(9).fill(null),
+                position: "",
+                player: ""
+            }],
+            xIsNext: true,
+            stepNumber: 0,
+            order: "ASC",
+        });
+
+         return null;
+    }
+
+    reversed () {
+        this.setState({
+            history: this.state.history.reverse(),
+            order: this.state.order==="ASC"?"DESC":"ASC"
+        })
+    }
+
     render() {
         const history = this.state.history
         const current = history[this.state.stepNumber];
-        const winner = calculateWinner(current);
+        const winner = calculateWinner(current.squares);
 
         const moves = history.map((step, move) => {
             const desc = move ? 
@@ -86,8 +110,12 @@ class Game extends Component<{}, MyState> {
                     />
                 </div>
                 <div className="game-info">
-                    <div>{status}</div>
-                    <ol>{moves}</ol>
+                    <div>
+                        {status}
+                        <button className={"button ml-5"} onClick={() => this.reversed()}>Ordre</button>
+                        <button className={"button button-active ml-5"} onClick={() => this.newGame()}>Redémarrer la partie</button>
+                    </div>
+                    <ul>{moves}</ul>
                 </div>
             </div>
         );
