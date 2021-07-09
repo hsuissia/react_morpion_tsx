@@ -123,7 +123,7 @@ class Game extends Component<{}, MyState> {
                         <button className={"button ml-5"} onClick={() => this.reversed()}>Ordre</button>
                         <button className={"button button-active ml-5"} onClick={() => this.newGame()}>Redémarrer la partie</button>
                     </div>
-                    <ul>{moves}</ul>
+                    <ol reversed={this.state.order!=="ASC"}>{moves}</ol>
                 </div>
             </div>
         );
