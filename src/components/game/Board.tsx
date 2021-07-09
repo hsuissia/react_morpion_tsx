@@ -3,14 +3,12 @@ import Square from './Square';
 
 type MyProps = {
     squares: Array<string>,
+    comboGagnant: number[],
     onClick: (i: number) => void;
 };
 class Board extends Component<MyProps, {}> {
     renderSquare(i: number) {
-        return <Square 
-            value={this.props.squares[i]}
-            onClick={() => { this.props.onClick(i) }}
-        />;
+        return 
     }
   
     render() {
@@ -19,9 +17,14 @@ class Board extends Component<MyProps, {}> {
         return (
             <div>
                 {row.map((r:number) => (
-                    <div className="board-row">
+                    <div key={r} className="board-row">
                         {col.map((c:number) => (
-                            this.renderSquare(c+r)
+                            <Square 
+                                key={c+r}
+                                value={this.props.squares[c+r]}
+                                winning={this.props.comboGagnant.includes(c+r)}
+                                onClick={() => { this.props.onClick(c+r) }}
+                            />
                         ))}
                     </div>
                 ))}

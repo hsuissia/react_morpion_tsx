@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 
 type MyProps = {
-    value: string
+    value: string,
+    winning: boolean,
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 class Square extends Component<MyProps, {}> {
     render() {
         return (
             <button 
-                className="square" 
+                className={this.props.winning?"winning-case square":"square"} 
                 onClick={this.props.onClick}
             >
-            {this.props.value}
+                {this.props.value}
             </button>
         );
     }

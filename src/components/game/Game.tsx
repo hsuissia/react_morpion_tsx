@@ -20,7 +20,7 @@ class Game extends Component<{}, MyState> {
         super(props);
         this.state = {
             history: [{
-                squares: Array(9).fill(null),
+                squares: Array(9).fill(""),
                 position: "",
                 player: ""
             }],
@@ -34,7 +34,7 @@ class Game extends Component<{}, MyState> {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
-        if (calculateWinner(squares) || squares[i]) {
+        if (calculateWinner(squares).gagnant || squares[i]!== "") {
             return;
         }
         squares[i] = this.state.xIsNext?"X":"O";
@@ -60,7 +60,7 @@ class Game extends Component<{}, MyState> {
     newGame () {
         this.setState({
             history: [{
-                squares: Array(9).fill(null),
+                squares: Array(9).fill(""),
                 position: "",
                 player: ""
             }],
@@ -80,25 +80,32 @@ class Game extends Component<{}, MyState> {
     }
 
     render() {
-        const history = this.state.history
+        const history = this.state.history;
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
-
+        const squares = current.squares.slice();
+        
         const moves = history.map((step, move) => {
             const desc = move ? 
-            'Joueur '+ step.player +' à jouer en '+ step.position +' : Revenir' :
-            'Revenir au début de la partie';
+            'Joueur '+ step.player +' à jouer en '+ step.position :
+            'Début de la partie';
             return (
                 <li key={move}>
-                    <button onClick={() => this.jumpTo(move)} className={move === this.state.stepNumber?"button button-active":"button button-primary"}>{desc}</button>
+                    <button onClick={() => this.jumpTo(move)} className={move === this.state.stepNumber?"button button-active mr-5":"button button-primary mr-5"}>Voir</button>{desc}
                 </li>
             )
         });
+
         let status: string;
-        if(winner) {
-            status = winner + ' win the game !';
+        if(winner.gagnant) {
+            status = winner.gagnant + ' win the game !';
         } else {
-            status = 'Next player : ' + (this.state.xIsNext?"X":"O");
+            if (current.squares.includes("")) {
+                status = 'Next player : ' + (this.state.xIsNext?"X":"O");
+            } else {
+                status = 'Match NUL !';
+            }
+            
         }
 
         return (
@@ -106,6 +113,7 @@ class Game extends Component<{}, MyState> {
                 <div className="game-board">
                     <Board 
                         squares={current.squares}
+                        comboGagnant={winner.comboGagnant}
                         onClick={(i: number) => this.handleClick(i)}
                     />
                 </div>

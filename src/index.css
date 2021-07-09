@@ -6,7 +6,6 @@ body {
 ol, ul {
   padding-left: 30px;
 }
-
 ol li, ul li {
   margin-bottom: 5px;
 }
@@ -42,6 +41,11 @@ ol li, ul li {
 .button.button-active {
   color: #fff;
   background-color: #f44336;
+}
+
+.button.button-gold {
+  color: #fff;
+  background-color: #f4c536;
 }
 
 .board-row:after {
@@ -88,4 +92,12 @@ ol li, ul li {
 
 .ml-5 {
   margin-left: 5px;
+}
+
+.mr-5 {
+margin-right: 5px;
+}
+
+.winning-case {
+  background-color: #f4c536;
 }
